@@ -1,0 +1,12 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/stan/Development/clojure/viaz",
+			"folder_exclude_patterns": ["target", "src", "test", "lib", "classes"]
+		},
+		{
+			"path": "src"
+		}
+	]
+}
