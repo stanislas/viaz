@@ -4,7 +4,8 @@
 	[:require [clj-time.core :as time]]
 	[:require [clj-time.format :as format]]
 	[:require [clojure.data.zip.xml :as dzip]]
-	[:import [org.joda.time LocalDate ReadableInstant ReadablePeriod]]
+	[:import [org.joda.time LocalDate ReadableInstant ReadablePeriod ReadablePartial]]
+	[:import [org.joda.time.format DateTimeFormatter]]
 	)
 
 (def zimbra-base-url "http://zimbra.ergon.ch/home/nanchen/viaz.xml")
@@ -24,18 +25,26 @@
   (plus- [this #^ReadablePeriod period] (.plus this period))
   (minus- [this #^ReadablePeriod period] (.minus this period)))
 
-(defn absolute-day [relative]
-	(let [day (time/plus (time/now) (time/days relative))]
-		(format/unparse zimbra-day-formater day)))
+(def zimbra-day-formatter (format/formatter "MM/dd/yyyy"))
+
+(def viaz-add-day-formatter (format/formatter "dd.MM.yyyy"))
+
+(defn format-day [#^ReadablePartial day #^DateTimeFormatter formatter]
+	(.print formatter day))
+
+(defn format-zimbra-day [day]
+	(format-day day zimbra-day-formatter))
+
+(defn format-viaz-day [day]
+	(format-day day viaz-add-day-formatter))
+
+(defn today [] (LocalDate/now))
+
+(defn plus-days [day n]
+	(time/plus day (time/days n)))
 
 (defn zimbra-url [start end]
-	(str zimbra-base-url "&start=" start "&end=" end))
-
-(defn relative-zimbra-zip [relative]
-	(-> relative absolute-day zimbra-url xml/parse zip/xml-zip))
-
-(defn absolute-zimbra-zip [absolute-day]
-	(-> absolute-day zimbra-url xml/parse zip/xml-zip))
+	(str zimbra-base-url "?start=" start "&end=" end))
 
 (defn compute-duration-in-hour [start end]
 	(/ (- end start) 1000.0 60 60))
@@ -46,19 +55,39 @@
 
 (defn extract-appointment [comp-node]
 	(let [comp-node-attrs (-> comp-node zip/node :attrs)
-		  [project activity] (clojure.string/split (comp-node-attrs :loc) #"/")
+		  [project activity] (clojure.string/split (:loc comp-node-attrs) #"/")
 		  start (extract-timestamp comp-node :s)
 		  end (extract-timestamp comp-node :e)]
-		(hash-map
-			:name (comp-node-attrs :name)
+		[(hash-map
+			:name (:name comp-node-attrs)
 			:project project
-			:activity activity
-			:duration (compute-duration-in-hour start end))))
+			:activity activity)
+		  (compute-duration-in-hour start end)]))
 
-(defn extract-comps [xml-doc]
+(defn extract-appointments [xml-doc]
 	(map extract-appointment (dzip/xml-> xml-doc :appt :inv :comp)))
 
-(defn extract-viaz-add [{:keys [name project activity duration]}]
-	(str "viaz-add " name project activity duration))
+(defn merge-durations [result [appt duration]]
+	(let [accumulated-duration (get result appt 0)]
+		(assoc result appt (+ accumulated-duration duration))))
 
-(def ex (zip/xml-zip (xml/parse "file:///Users/stan/Downloads/viaz.xml")))
+(defn group-durations [appointments]
+	(map
+		(fn [[appt duration]] (assoc appt :duration duration))
+		(reduce merge-durations {} appointments)))
+
+(defn extract-viaz-add [day {:keys [name project activity duration]}]
+	(str "viaz_add -d " (format-viaz-day day) " " project " " duration " '#" activity " " name "'"))
+
+(defn request-appointments [day] 
+	(let [start (format-zimbra-day day)
+		  end (format-zimbra-day (plus-days day 1))
+		  appts-xml (zip/xml-zip (xml/parse (zimbra-url start end)))]
+		(group-durations (extract-appointments appts-xml))))
+
+(defn generate-viaz-add [day]
+	(let [appointments (request-appointments day)]
+		(map (partial extract-viaz-add day) appointments)))
+
+(defn generate-viaz-add-relative [relative]
+	(generate-viaz-add (plus-days (today) relative)))
