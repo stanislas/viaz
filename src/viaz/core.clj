@@ -4,26 +4,14 @@
 	[:require [clj-time.core :as time]]
 	[:require [clj-time.format :as format]]
 	[:require [clojure.data.zip.xml :as dzip]]
+	[:require [viaz.cal :as cal]]
 	[:import [org.joda.time LocalDate ReadableInstant ReadablePeriod ReadablePartial]]
 	[:import [org.joda.time.format DateTimeFormatter]]
 	)
 
-(def zimbra-base-url "http://zimbra.ergon.ch/home/nanchen/viaz.xml")
+(def zimbra-base-url "http://zimbra.ergon.ch/home/")
 
-(extend-protocol time/DateTimeProtocol
-  org.joda.time.LocalDate
-  (year [this] (.getYear this))
-  (month [this] (.getMonthOfYear this))
-  (day [this] (.getDayOfMonth this))
-  (day-of-week [this] (.getDayOfWeek this))
-  (hour [this] (.getHourOfDay this))
-  (minute [this] 0)
-  (sec [this] 0)
-  (milli [this] 0)
-  (after? [this #^ReadableInstant that] (.isAfter this that))
-  (before? [this #^ReadableInstant that] (.isBefore this that))
-  (plus- [this #^ReadablePeriod period] (.plus this period))
-  (minus- [this #^ReadablePeriod period] (.minus this period)))
+(def zimbra-calendar-partial-url "/viaz.xml")
 
 (def zimbra-day-formatter (format/formatter "MM/dd/yyyy"))
 
@@ -38,13 +26,8 @@
 (defn format-viaz-day [day]
 	(format-day day viaz-add-day-formatter))
 
-(defn today [] (LocalDate/now))
-
-(defn plus-days [day n]
-	(time/plus day (time/days n)))
-
-(defn zimbra-url [start end]
-	(str zimbra-base-url "?start=" start "&end=" end))
+(defn zimbra-url [username start end]
+	(str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end))
 
 (defn compute-duration-in-hour [start end]
 	(/ (- end start) 1000.0 60 60))
@@ -81,13 +64,14 @@
 
 (defn request-appointments [day] 
 	(let [start (format-zimbra-day day)
-		  end (format-zimbra-day (plus-days day 1))
+		  end (format-zimbra-day (cal/plus-days day 1))
 		  appts-xml (zip/xml-zip (xml/parse (zimbra-url start end)))]
 		(group-durations (extract-appointments appts-xml))))
 
-(defn generate-viaz-add [day]
-	(let [appointments (request-appointments day)]
+(defn generate-viaz-add [period]
+	(let [day (cal/start-day period)
+		  appointments (request-appointments day)]
 		(map (partial extract-viaz-add day) appointments)))
 
-(defn generate-viaz-add-relative [relative]
-	(generate-viaz-add (plus-days (today) relative)))
+(defn generate-viaz-add-relative [time-expression]
+	(generate-viaz-add (cal/parse-time-expression time-expression)))

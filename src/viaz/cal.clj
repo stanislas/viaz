@@ -1,8 +1,7 @@
 (ns viaz.cal
 	[:require [clj-time.core :as time]]
 	[:require [clj-time.format :as format]]
-	[:import [org.joda.time LocalDate ReadableInstant ReadablePeriod ReadablePartial YearMonth]]
-	[:import [org.joda.time.format DateTimeFormatter]])
+	[:import [org.joda.time LocalDate ReadableInstant ReadablePeriod ReadablePartial YearMonth]])
 
 (extend-protocol time/DateTimeProtocol
   org.joda.time.LocalDate
@@ -18,9 +17,6 @@
   (before? [this #^ReadableInstant that] (.isBefore this that))
   (plus- [this #^ReadablePeriod period] (.plus this period))
   (minus- [this #^ReadablePeriod period] (.minus this period)))
-
-(defn format-day [#^ReadablePartial day #^DateTimeFormatter formatter]
-	(.print formatter day))
 
 (defn today [] (LocalDate/now))
 
