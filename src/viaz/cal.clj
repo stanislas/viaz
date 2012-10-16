@@ -27,15 +27,15 @@
 	(start-day [this])
 	(duration [this]))
 
-(defn shift-today [steps size-of-step]
+(defn shift-day [day steps size-of-step]
 	(plus-days (today) (* steps size-of-step)))
 
 (def size-of-day 1)
 (def size-of-week 7)
 
-(defrecord RelativeSingleDay [relative]
+(defrecord RelativeSingleDay [today relative]
 	ContinuousPeriod
-		(start-day [this] (shift-today (:relative this) size-of-day))
+		(start-day [this] (shift-day (:today this) (:relative this) size-of-day))
 		(duration [_] size-of-day))
 
 (defrecord AbsoluteSingleDay [#^LocalDate day]
@@ -43,21 +43,21 @@
 		(start-day [this] (:day this))
 		(duration [_] size-of-day))
 
-(defrecord RelativeWeek [relative]
+(defrecord RelativeWeek [today relative]
 	ContinuousPeriod
 		(start-day [this]
-			(let [shifted-today (shift-today (:relative this) size-of-week)
+			(let [shifted-today (shift-day (:today this) (:relative this) size-of-week)
 				  diff (- (time/day-of-week shifted-today) 1)]
 				(plus-days shifted-today (- diff))))
 		(duration [_] size-of-week))
 
-(defn shift-month [months]
-	(.plusMonths (YearMonth/now) months))
+(defn shift-month [month relative]
+	(.plusMonths month relative))
 
-(defrecord RelativeMonth [relative]
+(defrecord RelativeMonth [month relative]
 	ContinuousPeriod 
 		(start-day [this]
-			(let [month (shift-month (:relative this))]
+			(let [month (shift-month (:month this) (:relative this))]
 				(.toLocalDate month 1)))
 		(duration [this]
 			(.. (start-day this) (dayOfMonth) (getMaximumValue))))
@@ -76,6 +76,6 @@
 (defn parse-time-expression [time-expression]
 	(let [[relative period] (split-time-expression time-expression)]
 		((case period
-			(nil "" "d") ->RelativeSingleDay
-			"w" ->RelativeWeek
-			"m" ->RelativeMonth) relative)))
+			(nil "" "d") (partial ->RelativeSingleDay (today))
+			"w" (partial ->RelativeWeek (today))
+			"m" (partial ->RelativeMonth (YearMonth/now)) relative))))
