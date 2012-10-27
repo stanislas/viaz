@@ -38,9 +38,9 @@
 		(start-day [this] (shift-day (:today this) (:relative this) size-of-day))
 		(duration [_] size-of-day))
 
-(defrecord AbsoluteSingleDay [#^LocalDate day]
-	ContinuousPeriod
-		(start-day [this] (:day this))
+(extend-protocol ContinuousPeriod
+	LocalDate
+		(start-day [this] this)
 		(duration [_] size-of-day))
 
 (defrecord RelativeWeek [today relative]
