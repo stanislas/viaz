@@ -78,4 +78,4 @@
 		((case period
 			(nil "" "d") (partial ->RelativeSingleDay (today))
 			"w" (partial ->RelativeWeek (today))
-			"m" (partial ->RelativeMonth (YearMonth/now)) relative))))
+			"m" (partial ->RelativeMonth (YearMonth/now))) relative)))
