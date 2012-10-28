@@ -26,9 +26,6 @@
 (defn format-viaz-day [day]
 	(format-day day viaz-add-day-formatter))
 
-(defn zimbra-url [username start end]
-	(str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end))
-
 (defn compute-duration-in-hour [start end]
 	(/ (- end start) 1000.0 60 60))
 
@@ -38,7 +35,7 @@
 
 (defn extract-appointment [comp-node]
 	(let [comp-node-attrs (-> comp-node zip/node :attrs)
-		  [project activity] (clojure.string/split (:loc comp-node-attrs) #"/")
+		  [project activity] (clojure.string/split (:loc comp-node-attrs) (re-pattern "/"))
 		  start (extract-timestamp comp-node :s)
 		  end (extract-timestamp comp-node :e)]
 		[(hash-map
@@ -62,16 +59,22 @@
 (defn extract-viaz-add [day {:keys [name project activity duration]}]
 	(str "viaz_add -d " (format-viaz-day day) " " project " " duration " '#" activity " " name "'"))
 
-(defn request-appointments [day] 
-	(let [start (format-zimbra-day day)
-		  end (format-zimbra-day (cal/plus-days day 1))
-		  appts-xml (zip/xml-zip (xml/parse (zimbra-url start end)))]
+(defn assemble-zimbra-url [username start-day end-day]
+	(let [start (format-zimbra-day start-day)
+		  end (format-zimbra-day end-day)]
+		(str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end)))
+
+(defn request-appointments [username start-day end-day] 
+	(let [start (format-zimbra-day start-day)
+		  end (format-zimbra-day end-day)
+		  appts-xml (zip/xml-zip (xml/parse (assemble-zimbra-url username start end)))]
 		(group-durations (extract-appointments appts-xml))))
 
-(defn generate-viaz-add [period]
-	(let [day (cal/start-day period)
-		  appointments (request-appointments day)]
-		(map (partial extract-viaz-add day) appointments)))
+(defn generate-viaz-add [username period]
+	(let [start-day (cal/start-day period)
+		  end-day (cal/end-day period)
+		  appointments (request-appointments username start-day end-day)]
+		(map (partial extract-viaz-add start-day) appointments)))
 
 (defn generate-viaz-add-relative [time-expression]
-	(generate-viaz-add (cal/parse-time-expression time-expression)))
+	(generate-viaz-add "nanchen" (cal/parse-time-expression time-expression)))
