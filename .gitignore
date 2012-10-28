@@ -9,3 +9,5 @@ pom.xml
 .lein-failures
 .lein-plugins
 viaz.sublime-workspace
+.settings/ccw.repl.cmdhistory.prefs
+/bin
