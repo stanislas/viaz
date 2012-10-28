@@ -59,10 +59,8 @@
 (defn extract-viaz-add [day {:keys [name project activity duration]}]
 	(str "viaz_add -d " (format-viaz-day day) " " project " " duration " '#" activity " " name "'"))
 
-(defn assemble-zimbra-url [username start-day end-day]
-	(let [start (format-zimbra-day start-day)
-		  end (format-zimbra-day end-day)]
-		(str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end)))
+(defn assemble-zimbra-url [username start end]
+		(str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end))
 
 (defn request-appointments [username start-day end-day] 
 	(let [start (format-zimbra-day start-day)
