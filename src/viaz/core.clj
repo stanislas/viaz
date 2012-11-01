@@ -68,11 +68,14 @@
 		  appts-xml (zip/xml-zip (xml/parse (assemble-zimbra-url username start end)))]
 		(group-durations (extract-appointments appts-xml))))
 
-(defn generate-viaz-add [username period]
-	(let [start-day (cal/start-day period)
-		  end-day (cal/end-day period)
-		  appointments (request-appointments username start-day end-day)]
-		(map (partial extract-viaz-add start-day) appointments)))
+(defn generate-viaz-add [username day]
+	(let [start day
+		  end (cal/plus-days day 1)
+		  appointments (request-appointments username start end)]
+		 {:day day :viaz 
+    (map (partial extract-viaz-add start) appointments)}))
 
-(defn generate-viaz-add-relative [time-expression]
-	(generate-viaz-add "nanchen" (cal/parse-time-expression time-expression)))
+(defn generate-viaz-add-relative [username time-expression]
+  (let [period (cal/parse-time-expression time-expression)
+        days (cal/days period)]
+    (map (partial generate-viaz-add username) days)))
