@@ -7,7 +7,6 @@
                  [clj-time "0.4.4"]
                  [org.clojure/data.zip "0.1.1"]
                  [ring/ring-core "1.1.6"]
-     			 [ring/ring-jetty-adapter "1.1.6"]
+                 [ring/ring-jetty-adapter "1.1.6"]
                  [net.cgrand/moustache "1.1.0"]
-     			 [enlive "1.0.1"]]
-)
+                 [enlive "1.0.1"]])
