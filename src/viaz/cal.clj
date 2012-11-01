@@ -70,7 +70,7 @@
 		(map #(plus-days start-day %) (range 0 (duration period)))))
 
 (defn split-time-expression [time-expression]
-	(let [[_ relative period] (re-matches #"(-?[0-9])*([a-z])*" time-expression)]
+	(let [[_ relative period] (re-matches #"(-?[0-9]*)([a-z])*" time-expression)]
 		[(Long/parseLong relative) period]))
 
 (defn parse-time-expression [time-expression]
