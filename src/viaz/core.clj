@@ -57,7 +57,7 @@
 		(reduce merge-durations {} appointments)))
 
 (defn extract-viaz-add [day {:keys [name project activity duration]}]
-	(str "viaz_add -d " (format-viaz-day day) " " project " " duration " '#" activity " " name "'"))
+	{:duration duration :viaz-add (str "viaz_add -d " (format-viaz-day day) " " project " " duration " '#" activity " " name "'")})
 
 (defn assemble-zimbra-url [username start end]
 		(str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end))
