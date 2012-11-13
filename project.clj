@@ -9,4 +9,6 @@
                  [ring/ring-core "1.1.6"]
                  [ring/ring-jetty-adapter "1.1.6"]
                  [net.cgrand/moustache "1.1.0"]
-                 [enlive "1.0.1"]])
+                 [enlive "1.0.1"]]
+  :plugins [[lein-ring "0.7.5"]]
+  :ring {:handler viaz.edge/main-handler})

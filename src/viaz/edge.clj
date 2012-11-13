@@ -38,6 +38,3 @@
     [name period] (fn [req] (render-main name period))
     [&]        (error-with-map {})))
 
-(defonce server (run-jetty main-handler
-                           {:port 8001 :join? false}))
-
