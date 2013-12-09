@@ -27,15 +27,23 @@
 	(start-day [this])
 	(duration [this]))
 
+(defn end-day [period]
+	(plus-days (start-day period) (duration period)))
+
+(defn days [period]
+	(let [start-day (start-day period)]
+		(map #(plus-days start-day %) (range 0 (duration period)))))
+
+
 (defn shift-day [day steps size-of-step]
 	(plus-days (today) (* steps size-of-step)))
 
 (def size-of-day 1)
 (def size-of-week 7)
 
-(defrecord RelativeSingleDay [today relative]
+(defrecord RelativeSingleDay [base relative]
 	ContinuousPeriod
-		(start-day [this] (shift-day (:today this) (:relative this) size-of-day))
+		(start-day [this] (shift-day (:base this) (:relative this) size-of-day))
 		(duration [_] size-of-day))
 
 (extend-protocol ContinuousPeriod
@@ -43,10 +51,10 @@
 		(start-day [this] this)
 		(duration [_] size-of-day))
 
-(defrecord RelativeWeek [today relative]
+(defrecord RelativeWeek [base relative]
 	ContinuousPeriod
 		(start-day [this]
-			(let [shifted-today (shift-day (:today this) (:relative this) size-of-week)
+			(let [shifted-today (shift-day (:base this) (:relative this) size-of-week)
 				  diff (- (time/day-of-week shifted-today) 1)]
 				(plus-days shifted-today (- diff))))
 		(duration [_] size-of-week))
