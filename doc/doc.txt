@@ -1,0 +1,11 @@
+auth:
+
+curl -v -X POST -d @/Users/stan/engineering/viaz/doc/authrequest.xml http://zimbra.ergon.ch/service/soap/AuthRequest --header "Content-Type:text/xml" 
+
+folder:
+
+curl -v -X POST -d @/Users/stan/engineering/viaz/doc/soaprequest.xml http://zimbra.ergon.ch/service/soap/GetInfoRequest --header "Content-Type:text/xml"
+
+create appointment
+
+curl -v -X POST -d @/Users/stan/engineering/viaz/doc/soaprequest.xml http://zimbra.ergon.ch/service/soap/CreateAppointmentRequest --header "Content-Type:text/xml"

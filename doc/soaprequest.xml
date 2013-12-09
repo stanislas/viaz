@@ -1,0 +1,33 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+	<soap:Header>
+		<context xmlns="urn:zimbra">
+			<authToken>0_cfc323c834f73ef9589816f9d5e9f37f9e28d69c_69643d33363a39353164313462622d663935642d346636382d616234382d3164363634623761383233613b6578703d31333a313338333930373036333635373b747970653d363a7a696d6272613b</authToken>
+		</context>
+	</soap:Header>
+	<soap:Body>
+		<!-- <CreateAppointmentRequest xmlns="urn:zimbraMail">
+			<m f="s" l="137888">
+				<inv>
+					<comp status="CONF" fb="B" class="PUB" transp="O" draft="0"
+						allDay="0" name="hello stan" loc="bossard.armis/12334">
+						<s tz="Europe/Berlin" d="20131031T210000" />
+						<e tz="Europe/Berlin" d="20131031T220000" />
+						<or a="stanislas.nanchen@ergon.ch" d="Stanislas Nanchen" />
+					</comp>
+				</inv>
+				<su>hello stan</su>
+				<mp ct="multipart/alternative">
+					<mp ct="text/plain">
+						<content></content>
+					</mp>
+					<mp ct="text/html">
+						<content>&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt; </content>
+					</mp>
+				</mp>
+			</m>
+		</CreateAppointmentRequest> -->
+		<GetFolderRequest xmlns="urn:zimbraMail">
+  			<folder path="/viaz"/>
+		</GetFolderRequest>
+	</soap:Body>
+</soap:Envelope>

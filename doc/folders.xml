@@ -1,0 +1,190 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+	<soap:Header>
+		<context xmlns="urn:zimbra">
+			<change token="275127" />
+		</context>
+	</soap:Header>
+	<soap:Body>
+		<GetFolderResponse xmlns="urn:zimbraMail">
+			<folder id="1" rev="1" i4next="2" s="0" i4ms="1" ms="1"
+				name="USER_ROOT" n="0" l="11">
+				<folder f="*" id="169610" rev="274286" i4next="169611" s="0"
+					i4ms="274286" ms="274287" name="[Airmail]" n="0" l="1" view="message">
+					<folder f="*" id="169613" rev="274292" i4next="169614" s="0"
+						i4ms="274292" ms="274293" name="Done" n="0" l="169610" view="message" />
+					<folder f="*" id="169612" rev="274290" i4next="169613" s="0"
+						i4ms="274290" ms="274291" name="Memo" n="0" l="169610" view="message" />
+					<folder f="*" id="169611" rev="274288" i4next="169612" s="0"
+						i4ms="274288" ms="274289" name="To Do" n="0" l="169610" view="message" />
+				</folder>
+				<folder f="*" id="426" rev="29243" i4next="170446" s="58495665"
+					i4ms="274877" ms="210572" name="_ADMIN" n="573" l="1" view="message">
+					<folder f="*" id="127856" rev="195217" i4next="170286" s="7168412"
+						i4ms="274312" ms="268568" name="BA" n="80" l="426" view="message" />
+					<folder f="*" id="9798" rev="52634" i4next="170281" s="5853645"
+						i4ms="274651" ms="253175" name="EVW" n="428" l="426" view="message" />
+					<folder f="*" id="139939" rev="227264" i4next="144784" s="0"
+						i4ms="236087" ms="227265" name="GL" n="0" l="426" view="message" />
+					<folder f="*" id="23204" rev="49900" i4next="170296" s="2313923"
+						i4ms="274327" ms="210571" name="SHAREHOLDERS" n="29" l="426" view="message" />
+				</folder>
+				<folder f="*" id="427" rev="29245" i4next="170468" s="17488674"
+					i4ms="274990" ms="210679" name="_ENGINEERING" n="1005" l="1" view="message">
+					<folder f="*" id="32821" rev="73528" i4next="131141" s="180318"
+						i4ms="268815" ms="210577" name="ANDROID" n="28" l="427" view="message" />
+					<folder f="*" id="139574" rev="226707" i4next="143120" s="63042"
+						i4ms="268815" ms="226708" name="CRUCIBLE" n="9" l="427" view="message" />
+					<folder f="*" id="137136" rev="221158" i4next="141831" s="37654"
+						i4ms="268815" ms="221159" name="FGTECH" n="15" l="427" view="message" />
+					<folder id="12636" rev="23912" i4next="131580" s="272711"
+						i4ms="268815" ms="209455" name="TECHSPAM" n="42" l="427" view="message" />
+				</folder>
+				<folder f="*" id="348" rev="29246" i4next="170178" s="122688241"
+					i4ms="274308" ms="210661" name="_PRIVATE" n="943" l="1" view="message" />
+				<folder f="*" id="364" rev="29247" i4next="170158" s="4682607"
+					i4ms="274307" ms="259367" name="_PROJECTS" n="83" l="1" view="message">
+					<folder id="165202" rev="267114" i4next="170458" s="822865"
+						i4ms="274918" ms="267114" name="BOSSARD-ARIMS" n="95" l="364"
+						view="message">
+						<folder id="165460" rev="267481" i4next="170066" s="43539"
+							i4ms="274305" ms="267481" name="JIRA" n="6" l="165202" view="message" />
+					</folder>
+					<folder f="*" id="61180" rev="188773" i4next="170347" s="96958384"
+						i4ms="274442" ms="210853" name="COOP-MWS" n="2061" l="364" view="message">
+						<folder f="*" id="67631" rev="121602" i4next="170434" s="36593"
+							i4ms="274904" ms="210861" name="JIRA" n="5" l="61180" view="message" />
+					</folder>
+					<folder f="*" id="74330" rev="135175" i4next="169675" s="255069"
+						i4ms="274301" ms="265056" name="JET" n="79" l="364" view="message">
+						<folder f="*" id="74331" rev="135178" i4next="142501" s="0"
+							i4ms="272653" ms="210579" name="JIRA" n="0" l="74330" view="message" />
+					</folder>
+				</folder>
+				<folder f="*" id="4100" rev="29248" i4next="143797" s="0"
+					i4ms="235144" ms="210892" name="_ROTFL" n="0" l="1" view="message" />
+				<folder f="*" id="126238" rev="189941" i4next="170464" s="30467"
+					i4ms="274975" ms="210626" name="_SALES" n="5" l="1" view="message" />
+				<folder f="*" id="366" rev="29249" i4next="170466" s="1556636"
+					i4ms="274973" ms="210865" name="_SUPPORT" n="185" l="1" view="message">
+					<folder f="*" id="297" rev="71" i4next="169648" s="343910"
+						i4ms="274298" ms="210627" name="INFRA-TICKETS" n="28" l="366"
+						view="message" />
+					<folder f="*" id="16529" rev="30893" i4next="169645" s="4279920"
+						i4ms="274297" ms="210628" name="Mac User Group" n="169" l="366"
+						view="message" />
+				</folder>
+				<folder f="*" id="79827" rev="141473" i4next="170485" s="2565730"
+					i4ms="275124" ms="210671" name="ARCHIVE" n="56" l="1" view="message">
+					<folder f="*" id="79828" rev="141476" i4next="79829" s="0"
+						i4ms="141476" ms="210666" name="PROJECTS" n="0" l="79827" view="message">
+						<folder f="*" id="140691" rev="228728" i4next="169643" s="19797630"
+							i4ms="274296" ms="259368" name="BFS" n="230" l="79828" view="message">
+							<folder id="157097" rev="254531" i4next="169641" s="216611"
+								i4ms="274303" ms="254531" name="JIRA" n="25" l="140691" view="message" />
+						</folder>
+						<folder f="*" id="10949" rev="18832" i4next="170462" s="21343125"
+							i4ms="274972" ms="210662" name="FBA" n="452" l="79828" view="message" />
+						<folder f="*" id="77327" rev="138392" i4next="140689" s="74469186"
+							i4ms="268815" ms="259389" name="LABCOM" n="426" l="79828" view="message">
+							<folder f="*" id="79826" rev="141468" i4next="130615" s="462871"
+								i4ms="268815" ms="210581" name="JIRA" n="38" l="77327" view="message" />
+						</folder>
+						<folder f="*" id="134118" rev="213443" i4next="154300" s="1349009"
+							i4ms="268815" ms="267519" name="MTWEB" n="27" l="79828" view="message">
+							<folder f="*" id="138031" rev="223346" i4next="138039" s="77561"
+								i4ms="268815" ms="223347" name="JIRA" n="6" l="134118" view="message" />
+						</folder>
+						<folder f="*" id="129228" rev="199421" i4next="169638" s="19602429"
+							i4ms="274294" ms="259364" name="SUPERVISION" n="145" l="79828"
+							view="message" />
+						<folder f="*" id="6290" rev="18078" i4next="143479" s="28744159"
+							i4ms="268815" ms="232332" name="WIMS" n="354" l="79828" view="message">
+							<folder f="*" id="21264" rev="44728" i4next="133561" s="869180"
+								i4ms="268815" ms="210587" name="JIRA" n="59" l="6290" view="message">
+								<folder f="*" id="65160" rev="116851" i4next="65402" s="600466"
+									i4ms="268815" ms="210588" name="WIMS-918" n="5" l="21264" view="message" />
+							</folder>
+							<folder f="*" id="69307" rev="125820" i4next="124039" s="0"
+								i4ms="184636" ms="210589" name="OPERATION" n="0" l="6290" view="message" />
+							<folder f="*" id="15812" rev="27798" i4next="100895" s="0"
+								i4ms="169414" ms="210590" name="SVN" n="0" l="6290" view="message" />
+						</folder>
+						<folder f="*" id="367" rev="188781" i4next="158808" s="3452377"
+							i4ms="268815" ms="259390" name="ZEBRA" n="297" l="79828" view="message">
+							<folder f="*" id="9781" rev="15654" i4next="154347" s="6317746"
+								i4ms="268815" ms="210606" name="JIRA" n="453" l="367" view="message">
+								<folder f="*" id="304" rev="29366" i4next="23003" s="6413846"
+									i4ms="268815" ms="230277" name="CVS" n="569" l="9781" view="message">
+									<folder f="*" id="128276" rev="196476" i4next="138155"
+										s="2684" i4ms="268815" ms="226448" name="QUERITO" n="1" l="304"
+										view="message">
+										<folder f="*" id="128277" rev="196480" i4next="134970"
+											s="129069" i4ms="272652" ms="210583" name="JIRA" n="11" l="128276"
+											view="message" />
+									</folder>
+								</folder>
+							</folder>
+						</folder>
+					</folder>
+				</folder>
+				<folder f="*" id="140321" rev="227964" i4next="140322" s="0"
+					i4ms="227964" ms="227965" name="Archives" n="0" l="1" view="message">
+					<folder f="*" id="140322" rev="227966" i4next="140325" s="27864"
+						i4ms="268815" ms="227967" name="2012" n="2" l="140321" view="message" />
+				</folder>
+				<folder id="16" rev="1" i4next="17" s="0" i4ms="1" ms="1"
+					name="Briefcase" n="0" l="1" view="document" />
+				<folder f="b#i" id="10" rev="1" i4next="170393" s="322253"
+					i4ms="274911" ms="263995" name="Calendar" n="564" rgb="#B90E28" l="1"
+					view="appointment">
+					<acl>
+						<grant gt="pub" perm="r" />
+						<grant d="staff@ergon.ch" zid="08712f00-01c4-45b3-b70c-52fa084f5a82"
+							gt="grp" perm="rwidx" />
+					</acl>
+				</folder>
+				<folder f="*" id="14" rev="1" i4next="15" s="0" i4ms="1" ms="210613"
+					name="Chats" n="0" l="1" view="message" />
+				<link id="63531" rev="113570" rid="2"
+					zid="6a1af36d-cbee-45b3-9028-5386ea6f3d19" ms="117282"
+					name="Christof Marti's Posteingang" owner="christof.marti@ergon.ch"
+					l="1" view="message" />
+				<folder f="*" id="7" rev="1" i4next="151740" s="0" i4ms="268815"
+					ms="615" name="Contacts" n="2" l="1" view="contact" />
+				<folder f="*" id="12056" rev="21561" i4next="170454" s="31863"
+					i4ms="274902" ms="210860" name="Deleted Messages" n="2" l="1" view="message" />
+				<folder f="*" id="6" rev="1" i4next="170360" s="0" i4ms="274635"
+					ms="210915" name="Drafts" n="0" l="1" view="message" />
+				<folder f="*" id="13" rev="1" i4next="169494" s="0" *
+					Connection # to host zimbra.ergon.ch left intact i4ms="274040" ms="616"
+					name="Emailed Contacts" n="149" l="1" view="contact" />
+				<link f="#" id="1701" rev="3380" rid="257"
+					zid="c72652cd-bef1-43d6-b551-85d6303157e3" ms="271351" name="Ergon's Events"
+					owner="ergon@ergon.ch" rgb="#0E61B9" l="1" view="appointment" />
+				<folder f="*" id="2" rev="1" i4next="170484" s="583406" i4ms="275126"
+					ms="210935" name="Inbox" n="7" l="1" view="message" />
+				<folder f="*" id="4" rev="1" i4next="145205" s="0" i4ms="236607"
+					ms="210668" name="Junk" n="0" l="1" view="message" />
+				<folder f="*" id="15836" rev="27866" i4next="130038" s="0"
+					i4ms="202842" ms="210859" name="Junk (Ergon)" n="0" l="1" view="message" />
+				<folder id="12" rev="1" i4next="13" s="0" i4ms="1" ms="211402"
+					name="Notebook" n="0" l="1" view="document" />
+				<folder f="*" id="5" rev="1" i4next="170367" s="1759625"
+					i4ms="274640" ms="210863" name="Sent" n="155" l="1" view="message" />
+				<folder f="*" id="12096" rev="21803" i4next="170455" s="10772"
+					i4ms="274917" ms="210934" name="Sent Messages" n="3" l="1" view="message" />
+				<folder f="b#" id="15" rev="1" i4next="16" s="0" i4ms="1"
+					ms="245580" name="Tasks" n="0" rgb="#F64F00" l="1" view="task" />
+				<folder f="*" id="3" rev="1" i4next="170477" s="2161" i4ms="275012"
+					ms="210852" name="Trash" n="8" l="1" />
+				<folder f="b#i" id="137888" rev="223031" i4next="170487" s="0"
+					color="8" i4ms="275127" ms="254684" name="viaz" n="817" l="1"
+					view="appointment">
+					<acl>
+						<grant gt="pub" perm="r" />
+					</acl>
+				</folder>
+			</folder>
+		</GetFolderResponse>
+	</soap:Body>
+</soap:Envelope>
