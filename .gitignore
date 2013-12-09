@@ -11,3 +11,4 @@ pom.xml
 viaz.sublime-workspace
 .settings/ccw.repl.cmdhistory.prefs
 /bin
+.lein-repl-history
