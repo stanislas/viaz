@@ -12,9 +12,7 @@
 
 (defn name-period-handler [name period-expression]
 	(try
-		(let [period (cal/parse-time-expression period-expression)]
     {:name name :days (viaz/generate-viaz-add-relative name period-expression)}
-			)
 	 (catch IllegalArgumentException e
     (error-with-map {:exception e :message (.getMessage e) :stack (.getStackTrace e)}))))
 
