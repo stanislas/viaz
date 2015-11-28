@@ -1,18 +1,15 @@
 (ns viaz.core
-  (:require [clojure.xml :as xml]
-            [clojure.zip :as zip]
+  (:require [com.stuartsierra.component :as component]
+            [clj-http.client :as client]
             [clj-time.format :as format]
             [clojure.data.zip.xml :as dzip]
-            [viaz.cal :as cal]
-            [clj-http.client :as client])
+            [clojure.xml :as xml]
+            [clojure.zip :as zip]
+            [viaz.cal :as cal])
   (:import [org.joda.time ReadablePartial]
            [org.joda.time.format DateTimeFormatter]
            (java.io ByteArrayInputStream)
            (java.nio.charset StandardCharsets)))
-
-(def zimbra-base-url "https://vetter/service/home/" #_"http://zimbra.ergon.ch/home/")
-
-(def zimbra-calendar-partial-url "/Calendar/viaz.xml" #_"/viaz.xml")
 
 (def zimbra-day-formatter (format/formatter "MM/dd/yyyy"))
 
@@ -60,30 +57,34 @@
 (defn extract-viaz-add [day {:keys [name project activity duration]}]
   {:duration duration :viaz-add (str "viaz_add -d " (format-viaz-day day) " " project " " duration " '#" activity " " name "'")})
 
-(defn assemble-zimbra-url [username start end]
-  (let [url (str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end)]
-    (println url)
-    url))
+(defprotocol ZimbraLoader
+  (loadxml [this username start end]))
 
-(defn load-xml [url]
-  (xml/parse
-    (ByteArrayInputStream.
-      (.getBytes (:body (client/get url {:insecure? true})) StandardCharsets/UTF_8))))
+(defrecord ZimbraHttpLoader [zimbra-base-url zimbra-calendar-partial-url http-options]
+  ZimbraLoader
+  (loadxml [this username start end]
+    (let [url (str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end)]
+      (xml/parse
+        (ByteArrayInputStream.
+          (.getBytes (:body (client/get url http-options)) StandardCharsets/UTF_8)))))
+  component/Lifecycle
+  (start [c] c)
+  (stop [c] c))
 
-(defn request-appointments [username start-day end-day]
+(defn request-appointments [zimbra-loader username start-day end-day]
   (let [start (format-zimbra-day start-day)
         end (format-zimbra-day end-day)
-        appts-xml (zip/xml-zip (load-xml (assemble-zimbra-url username start end)))]
+        appts-xml (zip/xml-zip (loadxml zimbra-loader username start end))]
     (group-durations (extract-appointments appts-xml))))
 
-(defn generate-viaz-add [username day]
+(defn generate-viaz-add [zimbra-loader username day]
   (let [start day
         end (cal/plus-days day 1)
-        appointments (request-appointments username start end)]
+        appointments (request-appointments zimbra-loader username start end)]
     {:day day :viaz
           (map (partial extract-viaz-add start) appointments)}))
 
-(defn generate-viaz-add-relative [username time-expression]
+(defn generate-viaz-add-relative [zimbra-loader username time-expression]
   (let [period (cal/parse-time-expression time-expression)
         days (cal/days period)]
-    (map (partial generate-viaz-add username) days)))
+    (map (partial generate-viaz-add zimbra-loader username) days)))
