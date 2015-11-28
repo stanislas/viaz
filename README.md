@@ -1,13 +1,13 @@
 # viaz
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure webapp designed to produce viaz_add entries from a zimbra calendar
 
 ## Usage
 
-FIXME
+java -Dhttp-server-port=3000 -Dzimbra-base-url=http://zimbra.ergon.ch/home/ -Dzimbra-calendar-partial-url=/viaz.xml -Dzimbra-client-options={} -jar target/viaz-{version}-standalone.jar
 
 ## License
 
-Copyright © 2012 FIXME
+Copyright © 2012-2015 Stanislas Nanchen
 
 Distributed under the Eclipse Public License, the same as Clojure.

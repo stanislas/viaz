@@ -5,7 +5,8 @@
             [bidi.ring :refer [make-handler] :as bidi]
             [ring.util.response :refer [response]]
             [viaz.core :as viaz]
-            [viaz.render :as render]))
+            [viaz.render :as render])
+  (:gen-class))
 
 (defn error-with-map [error-map]
   (constantly {:status 404

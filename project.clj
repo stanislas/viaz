@@ -12,7 +12,9 @@
                  [org.clojure/clojure "1.7.0"]
                  [org.clojure/data.zip "0.1.1"]
                  [ring/ring-core "1.4.0"]]
+  :main viaz.system
   :profiles {:dev
              {:source-paths ["dev"]
               :dependencies [[org.clojure/java.classpath "0.2.2"]
-                             [org.clojure/tools.namespace "0.2.11"]]}})
+                             [org.clojure/tools.namespace "0.2.11"]]}
+             :uberjar {:aot :all}})
