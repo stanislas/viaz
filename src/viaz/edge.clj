@@ -1,10 +1,9 @@
 (ns viaz.edge
-  (:use [ring.adapter.jetty :only [run-jetty]])
-  (:use [ring.util.response :only [response]])
-  (:use [net.cgrand.moustache :only [app]])
-  (:require [viaz.cal :as cal])
-  (:require [viaz.core :as viaz])
-  (:require [viaz.render :as render]))
+  (:require [viaz.core :as viaz]
+            [viaz.render :as render]
+            [net.cgrand.moustache :refer [app]]
+            [ring.util.response :refer [response]]
+            [ring.adapter.jetty :refer [run-jetty]]))
 
 (defn error-with-map [error-map]
 	(constantly {:status 404
@@ -36,3 +35,5 @@
     [name period] (fn [req] (render-main name period))
     [&]        (error-with-map {})))
 
+(defn -main [port]
+  (run-jetty main-handler {:port (Integer/parseInt port)}))

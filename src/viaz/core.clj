@@ -1,13 +1,11 @@
 (ns viaz.core
-	[:require [clojure.xml :as xml]]
-	[:require [clojure.zip :as zip]]
-	[:require [clj-time.core :as time]]
-	[:require [clj-time.format :as format]]
-	[:require [clojure.data.zip.xml :as dzip]]
-	[:require [viaz.cal :as cal]]
-	[:import [org.joda.time LocalDate ReadableInstant ReadablePeriod ReadablePartial]]
-	[:import [org.joda.time.format DateTimeFormatter]]
-	)
+	(:require [clojure.xml :as xml]
+            [clojure.zip :as zip]
+            [clj-time.format :as format]
+            [clojure.data.zip.xml :as dzip]
+            [viaz.cal :as cal])
+  (:import [org.joda.time ReadablePartial]
+           [org.joda.time.format DateTimeFormatter]))
 
 (def zimbra-base-url "http://zimbra.ergon.ch/home/")
 
