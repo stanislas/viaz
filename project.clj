@@ -3,8 +3,7 @@
   :url "https://github.com/stanislas/viaz"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[clj-http "2.0.0"]
-                 [clj-time "0.11.0"]
+  :dependencies [[clj-time "0.11.0"]
                  [com.stuartsierra/component "0.3.0"]
                  [enlive "1.1.6"]
                  [environ "1.0.1"]

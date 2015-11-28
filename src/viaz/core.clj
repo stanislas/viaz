@@ -1,15 +1,13 @@
 (ns viaz.core
   (:require [com.stuartsierra.component :as component]
-            [clj-http.client :as client]
             [clj-time.format :as format]
             [clojure.data.zip.xml :as dzip]
             [clojure.xml :as xml]
             [clojure.zip :as zip]
+            [org.httpkit.client :as http]
             [viaz.cal :as cal])
   (:import [org.joda.time ReadablePartial]
-           [org.joda.time.format DateTimeFormatter]
-           (java.io ByteArrayInputStream)
-           (java.nio.charset StandardCharsets)))
+           [org.joda.time.format DateTimeFormatter]))
 
 (def zimbra-day-formatter (format/formatter "MM/dd/yyyy"))
 
@@ -65,8 +63,7 @@
   (loadxml [this username start end]
     (let [url (str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end)]
       (xml/parse
-        (ByteArrayInputStream.
-          (.getBytes (:body (client/get url http-options)) StandardCharsets/UTF_8)))))
+        (:body @(http/get url http-options)))))
   component/Lifecycle
   (start [c] c)
   (stop [c] c))
