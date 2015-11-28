@@ -63,7 +63,7 @@
   (loadxml [this username start end]
     (let [url (str zimbra-base-url username zimbra-calendar-partial-url "?start=" start "&end=" end)]
       (xml/parse
-        (:body @(http/get url http-options)))))
+        (:body @(http/get url (assoc http-options :as :stream))))))
   component/Lifecycle
   (start [c] c)
   (stop [c] c))
