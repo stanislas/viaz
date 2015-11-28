@@ -1,8 +1,8 @@
 (ns viaz.system
   (:require [com.stuartsierra.component :as component]
             [environ.core :refer [env]]
+            [org.httpkit.server :refer [run-server]]
             [net.cgrand.moustache :refer [app]]
-            [ring.adapter.jetty :refer [run-jetty]]
             [ring.util.response :refer [response]]
             [viaz.core :as viaz]
             [viaz.render :as render]))
@@ -40,11 +40,11 @@
 (defrecord HttpServer [port zimbra-loader server]
   component/Lifecycle
   (start [component]
-    (let [server (run-jetty (main-handler zimbra-loader) {:port port :join? false})]
+    (let [server (run-server (main-handler zimbra-loader) {:port port :join? false})]
       (assoc component :server server)))
   (stop [component]
     (let [server (:server component)]
-      (.stop server)
+      (server)
       (assoc component :server nil))))
 
 (defn http-server [port]
@@ -65,4 +65,7 @@
              :zimbra-client-options (read-string (env :zimbra-client-options))))
 
 (defn -main []
-  (system (enviroment env)))
+  (-> env
+      enviroment
+      system
+      component/start))
