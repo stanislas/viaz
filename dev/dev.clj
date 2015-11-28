@@ -27,7 +27,7 @@
 
 (def zimbra-8-env
   {:http-server-port            3000
-   :zimbra-base-url             "https://vetter/service/home/"
+   :zimbra-base-url             "https://vetter.ergon.ch/service/home/"
    :zimbra-calendar-partial-url "/Calendar/viaz.xml"
    :zimbra-client-options       {:insecure? true}})
 
@@ -48,7 +48,8 @@
   "Stops the system if it is currently running, updates the Var
   #'system."
   []
-  (alter-var-root #'system component/stop))
+  (alter-var-root #'system (fn [s]
+                             (when s (component/stop s)))))
 
 (defn go
   "Initializes and starts the system running."
@@ -62,3 +63,6 @@
   []
   (stop)
   (refresh :after `go))
+
+(comment
+  (reset))
