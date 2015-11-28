@@ -1,0 +1,42 @@
+<html>
+<head>
+	<title>viaz</title>
+	<link rel="stylesheet" type="text/css" href="/css/viaz.css">
+</head>
+<body>
+<h1 id="main-title">Main Title</h1>
+
+<div id="viazadd">
+
+	<h2 class="day-title">Day1</h2>
+
+	<table class="viaz-add">
+		<tr>
+			<td>
+				<button class="viaz-copy-button" data-clipboard-target="#viaz1">
+					<img src="/img/clippy.svg" width="13"
+					     alt="Copy to clipboard"/></button>
+			</td>
+			<td class="viaz-add-label" id="viaz1">viaz add</td>
+		</tr>
+		<tr>
+			<td>
+				<button class="viaz-copy-button" data-clipboard-target="#viaz2">
+					<img src="/img/clippy.svg" width="13"
+					     alt="Copy to clipboard"/></button>
+			</td>
+			<td class="viaz-add-label" id="viaz2">viaz add</td>
+		</tr>
+	</table>
+
+</div>
+
+<script src="/dist/clipboard.min.js"></script>
+<script>
+	var clipboard = new Clipboard('.viaz-copy-button');
+
+
+</script>
+
+</body>
+</html>

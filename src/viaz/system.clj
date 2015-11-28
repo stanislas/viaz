@@ -2,7 +2,7 @@
   (:require [com.stuartsierra.component :as component]
             [environ.core :refer [env]]
             [org.httpkit.server :refer [run-server]]
-            [bidi.ring :refer [make-handler]]
+            [bidi.ring :refer [make-handler] :as bidi]
             [ring.util.response :refer [response]]
             [viaz.core :as viaz]
             [viaz.render :as render]))
@@ -41,7 +41,8 @@
 (defn main-handler [zimbra-loader]
   (make-handler
     ["/"
-     [[[:name "/" :period] {:get (render-main zimbra-loader)}]
+     [["" (bidi/->ResourcesMaybe {:prefix "public/"})]
+      [[:name "/" :period] {:get (render-main zimbra-loader)}]
       [true {:get (error-with-map {})}]]]))
 
 (defrecord HttpServer [port zimbra-loader server]
