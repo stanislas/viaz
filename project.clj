@@ -1,4 +1,4 @@
-(defproject viaz "0.2-SNAPSHOT"
+(defproject viaz "0.2"
   :description "Viaz: create viaz-add entries from zimbra calendar"
   :url "https://github.com/stanislas/viaz"
   :license {:name "Eclipse Public License"
