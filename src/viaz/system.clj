@@ -2,7 +2,7 @@
   (:require [com.stuartsierra.component :as component]
             [environ.core :refer [env]]
             [org.httpkit.server :refer [run-server]]
-            [net.cgrand.moustache :refer [app]]
+            [bidi.ring :refer [make-handler]]
             [ring.util.response :refer [response]]
             [viaz.core :as viaz]
             [viaz.render :as render]))
@@ -23,19 +23,26 @@
 (def render-to-response
   (comp response render))
 
-(defn render-main [zimbra-loader name period]
-  (let [viazadds (name-period-handler zimbra-loader name period)]
-    (render-to-response
-      (render/main
-        {:main-title name
-         :rawviaz    viazadds
-         :days       (:days viazadds)}))))
+(defn render-main
+  ([zimbra-loader name period]
+   (let [viazadds (name-period-handler zimbra-loader name period)]
+     (render-to-response
+       (render/main
+         {:main-title name
+          :rawviaz    viazadds
+          :days       (:days viazadds)}))))
+  ([zimbra-loader]
+   (fn [req]
+     (let [name (-> req :route-params :name)
+           period (-> req :route-params :period)]
+       (render-main zimbra-loader name period)))))
+
 
 (defn main-handler [zimbra-loader]
-  (app
-    [name] (fn [req] (render-to-response (render/main {:main-title name})))
-    [name period] (fn [req] (render-main zimbra-loader name period))
-    [&] (error-with-map {})))
+  (make-handler
+    ["/"
+     [[[:name "/" :period] {:get (render-main zimbra-loader)}]
+      [true {:get (error-with-map {})}]]]))
 
 (defrecord HttpServer [port zimbra-loader server]
   component/Lifecycle
