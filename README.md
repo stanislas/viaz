@@ -8,6 +8,9 @@ java -Dhttp-server-port=3000 -Dzimbra-base-url=http://zimbra.ergon.ch/home/ -Dzi
 
 ## Docker (on jamal)
 
+lein uberjar
+mv target/viaz-{version}-standalone.jar docker
+cd docker
 docker build -t jamal.ergon.ch:5000/viaz:0.2 .
 
 # kill previous builds.
